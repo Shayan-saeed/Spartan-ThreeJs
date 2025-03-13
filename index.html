@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spartan Journey</title>
+  <link rel="stylesheet" href="./src/index.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #spartan-loader {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+
+    #helmet {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      background-image: url('loader.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: glow 2s infinite alternate;
+    }
+
+    #progress-circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid rgba(0, 0, 0, 0.2);
+      border-top-color: #810000;
+      transform: rotate(-90deg);
+      transition: transform 0.1s linear;
+    }
+
+    @keyframes glow {
+      from {
+        filter: brightness(1);
+      }
+
+      to {
+        filter: brightness(1.5);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .text-shadow-glow {
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #f00;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: #f00;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden font-spartan">
+  <div id="loading-screen">
+    <div id="spartan-loader">
+      <div id="helmet"></div>
+      <div id="progress-circle"></div>
+    </div>
+  </div>
+  <header class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-lg">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <div class="text-2xl font-extrabold tracking-widest uppercase hover:scale-105 transition-transform duration-300">
+        <a href="#"> Spartan</a>
+      </div>
+      <nav class="flex space-x-8 text-lg">
+        <a href="#intro" class="nav-link" onclick="setActiveLink(this)">Intro</a>
+        <a href="#description" class="nav-link" onclick="setActiveLink(this)">Description</a>
+        <a href="#contact" class="nav-link" onclick="setActiveLink(this)">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="banner"
+    class="section min-h-screen flex items-center justify-center text-center bg-gradient-to-b from-gray-900 to-black">
+    <div class="text-white z-10">
+      <h1 class="text-8xl font-extrabold tracking-wide leading-tight text-shadow-glow" data-animate="fade-in">
+        The Spartan
+      </h1>
+      <p class="text-xl mt-6 text-gray-300 animate-fade-in-slow" data-animate="fade-in" data-delay="0.5">Embark on a
+        journey.</p>
+    </div>
+  </section>
+
+  <section id="intro" class="section min-h-screen p-8 bg-gradient-to-b from-black to-[#8B0000]">
+    <div class="container mx-auto mt-32">
+      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="slide-in-left">01</div>
+      <div class="text-5xl font-semibold mb-2" data-animate="slide-in-right">Spartan Origins</div>
+      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.3">
+        Delve into the origins of the legendary Spartan. Discover their training, their battles, and their
+        legacy.
+      </p>
+    </div>
+  </section>
+
+  <section id="description" class="section min-h-screen p-8 text-end bg-gradient-to-b from-[#8B0000] to-brown-900">
+    <div class="container mx-auto mt-32">
+      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="slide-in-right">02</div>
+      <div class="text-5xl font-semibold mb-2" data-animate="slide-in-left">Spartan in Action</div>
+      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.3">
+        Witness the Spartan in action. Explore their combat techniques, their weaponry, and their unwavering
+        resolve.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="section min-h-screen p-8 bg-gradient-to-b from-grey-900 to-green-900">
+    <div class="container mx-auto mt-32">
+      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="fade-in">03</div>
+      <div class="text-5xl font-semibold mb-2" data-animate="fade-in" data-delay="0.2">Contact</div>
+      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.4">
+        Email: spartan@example.com<br>
+        Phone: +1 123 456 7890
+      </p>
+    </div>
+  </section>
+
+</body>
+<div id="container3D" class="fixed inset-0 pointer-events-none"></div>
+<script type="module" src="./src/main.js"></script>
+<script>
+  function setActiveLink(clickedLink) {
+    // Remove active class from all links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+    // Add active class to clicked link
+    clickedLink.classList.add('active');
+  }
+
+  // Set active link based on current section
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section');
+    let currentSection;
+
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= window.innerHeight / 2) {
+        currentSection = section.id;
+      }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/index.css">
+</head>
+
+<body>
+    <header>
+        <div class="content-fit">
+            <div class="logo">BEE</div>
+            <nav>
+                <ul>
+                    <li>Contacts</li>
+                    <li>Category</li>
+                    <li>Login</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="section" id="banner">
+        <div class="content-fit">
+            <div class="title" data-before="WEBSITEDESIGN">3D ANIMATION</div>
+        </div>
+        <img src="./src/img/flower.png" class="decorate" alt="" style="width: 50vw; bottom: 0; right: 0;">
+        <img src="./src/img/leaf.png" class="decorate" alt="" style="width: 30vw; bottom: 0; left: 0;">
+    </div>
+    <div class="section" id="intro">
+        <div class="content-fit">
+            <div class="number">01</div>
+            <div class="des">
+                <div class="title">3d animation design for website</div>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas a porro libero
+                    recusandae quae, aut ratione, incidunt laborum, necessitatibus similique enim doloremque ex.
+                    Laudantium obcaecati aspernatur doloremque illo beatae, maxime hic itaque consequatur nisi
+                    accusantium veritatis, voluptatem ratione! Placeat numquam nisi reiciendis harum quibusdam tempore
+                    eaque deleniti accusantium, veniam quae eos sed, asperiores laborum corporis odit mollitia
+                    consequatur adipisci? Quibusdam quis eos debitis non esse blanditiis laudantium rerum odit tempora?
+                    Corrupti maiores velit consequuntur cupiditate reiciendis similique provident repudiandae.</p>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="description">
+        <div class="content-fit">
+            <div class="number">02</div>
+            <div class="des">
+                <div class="title">LUNDEV</div>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus voluptas a porro libero
+                    recusandae quae, aut ratione, incidunt laborum, necessitatibus similique enim doloremque ex.
+                    Laudantium obcaecati aspernatur doloremque illo beatae, maxime hic itaque consequatur nisi
+                    accusantium veritatis, voluptatem ratione! Placeat numquam nisi reiciendis harum quibusdam tempore
+                    eaque deleniti accusantium, veniam quae eos sed, asperiores laborum corporis odit mollitia
+                    consequatur adipisci? Quibusdam quis eos debitis non esse blanditiis laudantium rerum odit tempora?
+                    Corrupti maiores velit consequuntur cupiditate reiciendis similique provident repudiandae.</p>
+            </div>
+        </div>
+        <img src="./src/img/leaf1.png" class="decorate" alt="" style="width: 70vw; bottom: 0; right: 0; z-index: 101;">
+    </div>
+    <div class="section" id="contact">
+        <div class="content-fit">
+            <div class="number">03</div>
+            <div class="des">
+                <div class="title">CONTACT</div>
+                <table>
+                    <tr>
+                        <td>Email</td>
+                        <td>test@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>+999.999.999</td>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <td>test.com</td>
+                    </tr>
+                </table>
+                <div class="sign">BEE</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<div id="container3D"></div>
+<script type="module" src="./src/main.js"></script>
+</html> -->

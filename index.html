@@ -9,235 +9,16 @@
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./src/index.css">
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      overflow-x: hidden;
-    }
-
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    #spartan-loader {
-      position: relative;
-      width: 150px;
-      height: 150px;
-    }
-
-    #helmet {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 150px;
-      height: 150px;
-      background-image: url('loader.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: glow 2s infinite alternate;
-    }
-
-    #progress-circle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 5px solid rgba(0, 0, 0, 0.2);
-      border-top-color: #810000;
-      transform: rotate(-90deg);
-      transition: transform 0.1s linear;
-    }
-
-    @keyframes glow {
-      from {
-        filter: brightness(1);
-      }
-
-      to {
-        filter: brightness(1.5);
-      }
-    }
-
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .text-shadow-glow {
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
-    }
-
-    .nav-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100%;
-      pointer-events: none;
-      z-index: 100;
-    }
-
-    .nav-container ::-moz-selection {
-      background: var(--bg);
-      color: var(--fg);
-    }
-
-    .nav-container ::selection {
-      background: var(--bg);
-      color: var(--fg);
-    }
-
-    .nav-container .stripe-bg {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      display: flex;
-    }
-
-    .nav-container .stripe-bg .stripe {
-      height: 0%;
-      width: 25%;
-      background: rgba(0, 0, 0, 0.85);
-      /* Adjusted to match your site's color */
-      transition: height 250ms ease-out;
-      transition-delay: var(--i);
-    }
-
-    .nav-container .navbar {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      padding-left: 10%;
-      display: flex;
-      /* justify-content: center; */
-      align-items: center;
-    }
-
-    .nav-container .navbar .nav-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .nav-container .navbar .nav-list .nav-item {
-      font-size: 3rem;
-      margin: 0.5em 0;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: 250ms ease-in-out;
-      transition-delay: 0;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-container .navbar .nav-list .nav-item .nav-prefix {
-      font-size: 1.4rem;
-      margin-right: 0.8em;
-      color: #888;
-    }
-
-    .nav-container .navbar .nav-list .nav-item .nav-link {
-      position: relative;
-      color: white;
-      text-decoration: none;
-      text-transform: capitalize;
-      padding-bottom: 5px;
-    }
-
-    .nav-container .navbar .nav-list .nav-item .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 5px;
-      background: #810000;
-      transition: width 250ms ease-in-out;
-    }
-
-    .nav-container .navbar .nav-list .nav-item .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-container.show {
-      pointer-events: all;
-    }
-
-    .nav-container.show .stripe {
-      height: 100%;
-    }
-
-    .nav-container.show .navbar .nav-list .nav-item {
-      opacity: 1;
-      transform: translate(0);
-      transition-delay: var(--i);
-    }
-
-    .hamburger {
-      height: 2rem;
-      width: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      cursor: pointer;
-      transition: 250ms ease-in-out;
-      z-index: 101;
-    }
-
-    .hamburger .bar {
-      height: 2px;
-      width: 100%;
-      background: white;
-      transition: 250ms ease-in-out;
-    }
-
-    .hamburger.cross {
-      transform: rotate(360deg);
-      justify-content: center;
-    }
-
-    .hamburger.cross .bar:first-child {
-      transform: rotate(-45deg);
-    }
-
-    .hamburger.cross .bar:last-child {
-      transform: rotate(45deg);
-    }
-  </style>
 </head>
 
-<body class="overflow-x-hidden font-spartan">
+<body class="font-spartan">
   <div id="loading-screen">
     <div id="spartan-loader">
       <div id="helmet"></div>
       <div id="progress-circle"></div>
     </div>
   </div>
-  <header class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-lg">
+  <header class="fixed top-0 w-full z-50 backdrop-blur-lg">
     <div class="container mx-auto flex justify-between items-center p-6">
       <div class="text-2xl font-extrabold tracking-widest uppercase hover:scale-105 transition-transform duration-300">
         <a href="#"> Spartan</a>
@@ -265,7 +46,7 @@
             <a href="#description" class="nav-link close-nav">Description</a>
           </li>
           <li class="nav-item" style="--i: 1500ms">
-            <span class="nav-prefix">02</span>
+            <span class="nav-prefix">03</span>
             <a href="#contact" class="nav-link close-nav">Contact</a>
           </li>
         </ul>
@@ -273,132 +54,155 @@
     </div>
   </header>
 
-  <section id="banner"
-    class="section min-h-screen flex items-center justify-center text-center bg-gradient-to-b from-gray-900 to-black">
-    <div class="text-white z-10">
-      <h1 class="text-8xl font-extrabold tracking-wide leading-tight text-shadow-glow" data-animate="fade-in">
-        The Spartan
-      </h1>
-      <p class="text-xl mt-6 text-gray-300 animate-fade-in-slow" data-animate="fade-in" data-delay="0.5">
-        Embark on a journey through the legendary world of the Spartans.
-      </p>
-    </div>
-  </section>
-
-  <section id="intro" class="section min-h-screen p-8 bg-gradient-to-b from-black to-[#8B0000]">
-    <div class="container w-full md:w-1/2 mt-32">
-      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="slide-in-left">01</div>
-      <div class="text-5xl font-semibold mb-2" data-animate="slide-in-right">Spartan Origins</div>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.3">
-        The Spartans, renowned for their military prowess, were a unique society in ancient Greece. From a young age,
-        boys were trained in rigorous physical and mental disciplines, fostering unwavering loyalty and exceptional
-        combat skills. Their values of honor, duty, and resilience shaped their legacy.
-      </p>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.5">
-        Spartan training, known as the Agoge, was designed to produce warriors of unparalleled strength and endurance.
-        It involved harsh conditions, relentless exercises, and a focus on teamwork.
-      </p>
-    </div>
-  </section>
-
-  <section id="description" class="section min-h-screen p-8 text-end bg-gradient-to-b from-[#8B0000] to-brown-900">
-    <div class="container w-full md:w-1/2 mt-32 ml-auto">
-      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="slide-in-right">02</div>
-      <div class="text-5xl font-semibold mb-2" data-animate="slide-in-left">Spartan in Action</div>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.3">
-        In battle, Spartans were known for their unwavering discipline and effective tactics. Their phalanx formation, a
-        wall of shields and spears, was nearly impenetrable. They were masters of close-quarters combat, wielding their
-        spears and short swords with deadly precision.
-      </p>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.5">
-        Spartan weaponry was designed for efficiency and effectiveness. Their primary weapon was the spear, used in
-        conjunction with a large, round shield. They also carried a short sword, the xiphos, for close combat.
-      </p>
-    </div>
-  </section>
-
-  <section id="contact" class="section min-h-screen p-8 bg-gradient-to-b from-grey-900 to-green-900">
-    <div class="container mx-auto mt-32">
-      <div class="text-6xl font-bold mb-4 text-gray-400" data-animate="fade-in">03</div>
-      <div class="text-5xl font-semibold mb-2" data-animate="fade-in" data-delay="0.2">Contact</div>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.4">
-        Connect with us to learn more about the legendary Spartans and their enduring legacy.
-      </p>
-      <p class="text-lg mt-4 leading-relaxed" data-animate="fade-in" data-delay="0.4">
-        Email: spartan@example.com<br>
-        Phone: +1 123 456 7890
-      </p>
-      <div>
-        <p class="mt-8 text-lg leading-relaxed" data-animate="fade-in" data-delay="0.4">
-          Follow us on:
+  <section id="banner" class="section flex items-center justify-center text-center bg-gradient-to-b from-gray-900 to-black">
+    <div class="text-white z-10 max-w-4xl mx-auto px-4">
+      <div class="relative">
+        <!-- <div class="absolute -top-20 left-1/2 transform -translate-x-1/2 w-32 h-32 border-4 border-red-800 rounded-full opacity-20"></div> -->
+        <h1 class="text-8xl font-extrabold tracking-wide leading-tight text-shadow-glow" data-animate="fade-in">
+          The Spartan
+        </h1>
+      </div>
+      <div class="mt-8 relative">
+        <div class="absolute left-0 top-0 w-1 h-full bg-red-800 opacity-50"></div>
+        <p class="text-xl text-gray-300 pl-8" data-animate="fade-in" data-delay="0.5">
+          Embark on a journey through the legendary world of the Spartans.
         </p>
-        <div class="space-x-4 mt-2">
-          <a href="#" class="text-white hover:text-blue-700 transition duration-300" data-animate="fade-in"
-            data-delay="0.8">
-            <i class="fab fa-twitter text-2xl"></i>
-          </a>
-          <a href="#" class="text-white hover:text-blue-700 transition duration-300" data-animate="fade-in"
-            data-delay="1.0">
-            <i class="fab fa-linkedin-in text-2xl"></i>
-          </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="intro" class="section p-8 bg-gradient-to-b from-black to-[#8B0000]">
+    <div class="container mx-auto mt-32">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8 z-10 md:z-0">
+          <div class="relative">
+            <div class="text-4xl font-bold text-gray-400" data-animate="slide-in-left">01</div>
+            <div class="absolute -left-4 top-0 w-1 h-full bg-red-800 opacity-50"></div>
+          </div>
+          <div class="text-5xl font-semibold" data-animate="slide-in-right" style="text-shadow: 0 0 10px #fff;">
+            Spartan Origins
+          </div>
+          <div class="space-y-6">
+            <p class="text-lg leading-relaxed" data-animate="fade-in" data-delay="0.3">
+              The Spartans, renowned for their military prowess, were a unique society in ancient Greece. From a young age,
+              boys were trained in rigorous physical and mental disciplines, fostering unwavering loyalty and exceptional
+              combat skills.
+            </p>
+            <p class="text-lg leading-relaxed" data-animate="fade-in" data-delay="0.5">
+              Their values of honor, duty, and resilience shaped their legacy.
+            </p>
+          </div>
+        </div>
+        <div class="relative z-40 bg-gradient-to-t from-black/60 to-transparent shadow-2xl rounded-lg mt-10">
+          <div class="absolute inset-0 bg-red-800 opacity-10 rounded-lg"></div>
+          <div class="p-8 space-y-6">
+            <h3 class="text-2xl font-bold text-red-300" data-animate="fade-in" data-delay="0.7">The Agoge Training</h3>
+            <p class="text-lg leading-relaxed text-gray-300" data-animate="fade-in" data-delay="0.8">
+              Spartan training, known as the Agoge, was designed to produce warriors of unparalleled strength and endurance.
+              It involved harsh conditions, relentless exercises, and a focus on teamwork.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <section id="description" class="section p-8 bg-gradient-to-b from-[#8B0000] to-brown-900">
+    <div class="container mx-auto mt-32">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="relative order-2 md:order-1 z-40 bg-gradient-to-t from-black/60 to-transparent shadow-2xl rounded-lg mt-10">
+          <div class="absolute inset-0 bg-red-800 opacity-10 rounded-lg"></div>
+          <div class="p-8 space-y-6">
+            <h3 class="text-2xl font-bold text-red-300" data-animate="fade-in" data-delay="0.7">Battle Tactics</h3>
+            <p class="text-lg leading-relaxed text-gray-300" data-animate="fade-in" data-delay="0.8">
+              In battle, Spartans were known for their unwavering discipline and effective tactics. Their phalanx formation,
+              a wall of shields and spears, was nearly impenetrable.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-8 order-1 md:order-2 z-10 md:z-0">
+          <div class="relative">
+            <div class="text-4xl font-bold text-gray-400" data-animate="slide-in-right">02</div>
+            <div class="absolute -right-4 top-0 w-1 h-full bg-red-800 opacity-50"></div>
+          </div>
+          <div class="text-5xl font-semibold" data-animate="slide-in-left" style="text-shadow: 0 0 10px #fff;">
+            Spartan in Action
+          </div>
+          <div class="space-y-6">
+            <p class="text-lg leading-relaxed" data-animate="fade-in" data-delay="0.3">
+              They were masters of close-quarters combat, wielding their spears and short swords with deadly precision.
+            </p>
+            <p class="text-lg leading-relaxed" data-animate="fade-in" data-delay="0.5">
+              Spartan weaponry was designed for efficiency and effectiveness. Their primary weapon was the spear, used in
+              conjunction with a large, round shield. They also carried a short sword, the xiphos, for close combat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section p-8 bg-gradient-to-b from-grey-900 to-green-900">
+    <div class="container mx-auto mt-32">
+      <div class="max-w-4xl mx-auto">
+        <div class="relative">
+          <div class="text-4xl font-bold text-gray-400" data-animate="fade-in">03</div>
+          <div class="absolute -left-4 top-0 w-1 h-full bg-red-800 opacity-50"></div>
+        </div>
+        <div class="text-5xl font-semibold mb-12 mt-4 z-10 md:z-0" data-animate="fade-in" data-delay="0.2" style="text-shadow: 0 0 10px #fff;">
+          Contact
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div class="space-y-8">
+            <div class="relative z-10 md:z-0">
+              <div class="absolute inset-0 bg-red-800 opacity-10 rounded-lg"></div>
+              <div class="p-8">
+                <h3 class="text-2xl font-bold text-red-300 mb-6" data-animate="fade-in" data-delay="0.4">Get in Touch</h3>
+                <div class="space-y-4">
+                  <p class="text-lg" data-animate="fade-in" data-delay="0.5">
+                    Email: spartan@example.com
+                  </p>
+                  <p class="text-lg" data-animate="fade-in" data-delay="0.6">
+                    Phone: +1 123 456 7890
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-8">
+            <div class="relative z-40">
+              <div class="absolute inset-0 bg-red-800 opacity-10 rounded-lg"></div>
+              <div class="p-8">
+                <h3 class="text-2xl font-bold text-red-300 mb-6" data-animate="fade-in" data-delay="0.7">Follow Us</h3>
+                <div class="flex space-x-6">
+                  <a href="#" class="text-white hover:scale-110 transition duration-300" data-animate="fade-in" data-delay="0.8">
+                    <i class="fab fa-twitter text-3xl"></i>
+                  </a>
+                  <a href="#" class="text-white hover:scale-110 transition duration-300" data-animate="fade-in" data-delay="0.9">
+                    <i class="fab fa-linkedin-in text-3xl"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="w-full z-40 relative bg-gradient-to-t from-black to-transparent shadow-2xl">
     <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
-    <div class="p-16 text-white flex justify-between items-center">
-      <p>We'd love to hear from you</p>
-      <p>Subscribe to our newsletter</p>
+    <div class="container mx-auto p-16 text-white flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <p class="text-lg">We'd love to hear from you</p>
+      <div class="flex items-center space-x-4">
+        <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-transparent border border-gray-700 rounded focus:outline-none focus:border-red-800">
+        <button class="px-6 py-2 bg-red-800 hover:bg-red-700 rounded transition duration-300">Subscribe</button>
+      </div>
     </div>
   </footer>
 </body>
 <div id="container3D" class="fixed inset-0 pointer-events-none"></div>
 <script type="module" src="./src/main.js"></script>
-<script>
-  const hamburger = document.querySelector(".hamburger");
-  const navContainer = document.querySelector(".nav-container");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("cross");
-    navContainer.classList.toggle("show");
-  });
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      hamburger.classList.remove("cross");
-      navContainer.classList.remove("show");
-    });
-  });
-  function setActiveLink(clickedLink) {
-    // Remove active class from all links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.remove('active');
-    });
-    // Add active class to clicked link
-    clickedLink.classList.add('active');
-  }
-
-  // Set active link based on current section
-  window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('.section');
-    let currentSection;
-
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= window.innerHeight / 2) {
-        currentSection = section.id;
-      }
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + currentSection) {
-        link.classList.add('active');
-      }
-    });
-  });
-</script>
-
+<script src="./src/animations.js"></script>
+<script src="./src/header.js"></script>
 </html>

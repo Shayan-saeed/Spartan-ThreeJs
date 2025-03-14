@@ -66,6 +66,38 @@ scene.add(particles);
 //     sound.play();
 // });
 
+let isSmallScreen = window.innerWidth < 1000;
+
+const updateModelForScreenSize = () => {
+    if (!spartan) return;
+    
+    isSmallScreen = window.innerWidth < 1000;
+    
+    if (isSmallScreen) {
+        // Set base position for small screens
+        spartan.position.set(0, -2, -10);
+        spartan.rotation.set(0, 0, 0);
+        camera.position.z = 15;
+        // Set container to be behind content
+        // document.getElementById('container3D').style.zIndex = '0';
+    } else {
+        // Reset to original position based on scroll
+        modelMove();
+        camera.position.z = 20;
+        // Reset container z-index
+        // document.getElementById('container3D').style.zIndex = '0';
+    }
+    
+    // Update camera aspect ratio
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+};
+
+window.addEventListener('resize', () => {
+    updateModelForScreenSize();
+});
+
 loader.load('/spartan.glb',
     function (gltf) {
         spartan = gltf.scene;
@@ -73,7 +105,7 @@ loader.load('/spartan.glb',
 
         mixer = new THREE.AnimationMixer(spartan);
         mixer.clipAction(gltf.animations[0]).play();
-        modelMove();
+        updateModelForScreenSize(); // Initialize position based on screen size
         loadingScreen.style.display = 'none';
     },
     function (xhr) {
@@ -159,20 +191,42 @@ const modelMove = () => {
 
     if (position_active >= 0) {
         let new_coordinates = arrPositionModel[position_active];
-        gsap.to(spartan.position, {
-            x: new_coordinates.position.x,
-            y: new_coordinates.position.y,
-            z: new_coordinates.position.z,
-            duration: 2,
-            ease: 'power1.out',
-        });
-        gsap.to(spartan.rotation, {
-            x: new_coordinates.rotation.x,
-            y: new_coordinates.rotation.y,
-            z: new_coordinates.rotation.z,
-            duration: 2,
-            ease: 'power1.out',
-        });
+        
+        if (isSmallScreen) {
+            // Apply subtle movements around the base position for small screens
+            gsap.to(spartan.position, {
+                x: 0 + (new_coordinates.position.x * 0.2), // Reduced movement range
+                y: -2 + (new_coordinates.position.y * 0.1), // Very subtle vertical movement
+                z: -10, // Keep fixed z position
+                duration: 2,
+                ease: 'power1.out',
+            });
+            gsap.to(spartan.rotation, {
+                x: new_coordinates.rotation.x * 0.3, // Reduced rotation
+                y: new_coordinates.rotation.y * 1,
+                z: 0,
+                duration: 2,
+                ease: 'power1.out',
+            });
+        } else {
+            // Original full movement for larger screens
+            gsap.to(spartan.position, {
+                x: new_coordinates.position.x,
+                y: new_coordinates.position.y,
+                z: new_coordinates.position.z,
+                duration: 2,
+                ease: 'power1.out',
+            });
+            gsap.to(spartan.rotation, {
+                x: new_coordinates.rotation.x,
+                y: new_coordinates.rotation.y,
+                z: new_coordinates.rotation.z,
+                duration: 2,
+                ease: 'power1.out',
+            });
+        }
+
+        // Keep the lighting animations for both screen sizes
         gsap.to(ambientLight.color, {
             r: new THREE.Color(new_coordinates.ambientColor).r,
             g: new THREE.Color(new_coordinates.ambientColor).g,
@@ -185,12 +239,6 @@ const modelMove = () => {
             b: new THREE.Color(new_coordinates.directionalColor).b,
             duration: 2
         });
-        // if (sound.isPlaying) {
-        //     sound.stop();
-        // }
-        // if (currentSection === 'contact') {
-        //     sound.play();
-        // }
     }
 };
 
@@ -198,10 +246,4 @@ window.addEventListener('scroll', () => {
     if (spartan) {
         modelMove();
     }
-});
-
-window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
 });
